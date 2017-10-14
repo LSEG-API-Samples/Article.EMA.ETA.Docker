@@ -84,7 +84,7 @@ The list of instructions in the Dockerfile for building an Elektron SDK Docker i
 ```
 FROM oraclelinux:7
 ```
-> The **FROM** instruction is the first valid instruction of a Dockerfile. It sets the base image for the build process. The subsequent instructions would build on top of this base image. Elekton SDK supports Oracle Linux 7 so it is used as a base image for building an Elektron SDK Docker image.
+> The **FROM** instruction is the first valid instruction of a Dockerfile. It sets the base image for the build process. The subsequent instructions would build on top of this base image. Elektron SDK supports Oracle Linux 7 so it is used as a base image for building an Elektron SDK Docker image.
 
 2. Set author's detail of the image
 
@@ -93,7 +93,7 @@ LABEL maintainer="Thomson Reuters Active Help Service"
 ```
 > The **LABEL** instruction adds key-value pair metadata to an image. The above instruction adds a metadata for the maintainer of this image. Users can use **docker inspect** command to view an image's labels.
 
-3. Load and build the Elekton SDK libraries
+3. Load and build the Elektron SDK libraries
 
 > In this step, the **RUN** instruction is used to load all required packages, and build the Elektron SDK libraries and examples. It accepts multiple commands separated by a && operator. The backslash is also used to split long RUN statements into multiple lines. 
 
@@ -102,7 +102,7 @@ LABEL maintainer="Thomson Reuters Active Help Service"
 ```
 RUN yum -y install gcc-c++.x86_64 git.x86_64 ksh redhat-lsb-core.x86_64 \
 ```
-> Then, it creates a directory (/opt/thomsonreuetrs) for installing the Elektron SDK and uses **git** command to clone the Elektron SDK package from github.
+> Then, it creates a directory (/opt/thomsonreuters) for installing the Elektron SDK and uses **git** command to clone the Elektron SDK package from github.
 
 ```
 ... 
