@@ -4,12 +4,12 @@ Docker is an open containerization platform for developing, testing, deploying, 
 
 Developers can use Docker to automate the repetitive chores, such as setting up and configuring controlled development environments. Each environment or container has its own resources that are independent from other containers.  Numerous containers of separate applications are running completely on different stacks. Therefore, developers can avoid common problems, such as run-time library conflictions, and unsupported environments and focus totally on developing software. Moreover, they can simply delete the containers without any footprints left on the host machine.
 
-This article shows an example of how to deploy and run Elektron SDK's applications in the docker platform. It starts with building a docker image for Elektron SDK and then showing use case scenarios including running the provider and consumer examples.
+This article shows an example of how to deploy and run Elektron SDK's applications in the Docker platform. It starts with building a Docker image for Elektron SDK and then showing use case scenarios including running the provider and consumer examples.
 
-However, the Elektron SDK isn't qualified on the docker platform. If you find problems in the Elektron SDK while running on the docker platform, the issues must be replicated on bare metal machines before contacting the helpdesk support.
+However, the Elektron SDK isn't qualified on the Docker platform. If you find problems in the Elektron SDK while running on the Docker platform, the issues must be replicated on bare metal machines before contacting the helpdesk support.
 
 ## Docker Installation
-Docker is available on many platforms, such as Windows, Mac, CentOS, Debian, Oracle Linux, RHEL, and Ubuntu. In this article, Oracle Linux Server 6 and docker 1.12.6 are used. Please follow these steps to install a Docker.
+Docker is available on many platforms, such as Windows, Mac, CentOS, Debian, Oracle Linux, RHEL, and Ubuntu. In this article, Oracle Linux Server 6 and Docker 1.12.6 are used. Please follow these steps to install a Docker.
 
 1. Installing Docker engine
 
@@ -144,7 +144,7 @@ RUN yum -y install gcc-c++.x86_64 git.x86_64 ksh redhat-lsb-core.x86_64 \
 ```
 WORKDIR /opt/thomsonreuters/Elektron-SDK/Cpp-C/Eta/Applications/Examples
 ```
->> The above **WORKDIR** instruction sets the working directory to the **Examples** directory of Elektron SDK C package. This directory contains softlinks to the provider and consumer applications which can be executed in docker containers.
+>> The above **WORKDIR** instruction sets the working directory to the **Examples** directory of Elektron SDK C package. This directory contains softlinks to the provider and consumer applications which can be executed in Docker containers.
 
 5.  Set the default command for an executing container
 ```
@@ -154,7 +154,7 @@ CMD /bin/sh
 
 The full Dockerfile is available in [github](https://github.com/TR-API-Samples/Article.EMA.ETA.Docker). 
 
-To build a docker image from this Dockerfile, you can copy this Docker file to the host machine, and then run the following command in the same directory that contains this Dockerfile.
+To build a Docker image from this Dockerfile, you can copy this Docker file to the host machine, and then run the following command in the same directory that contains this Dockerfile.
 
 ```
 $ ls -al
@@ -192,7 +192,7 @@ Now, the Elektron SDK Docker image is ready to be used. The next section shows h
 
 ### 1. Run Provider and Consumer on the same Docker host
 
-The Provider and Consumer examples are built in the image and ready to run in Docker containers. This section shows how to run the provider and consumer examples in docker containers on the same docker host.
+The Provider and Consumer examples are built in the image and ready to run in Docker containers. This section shows how to run the provider and consumer examples in Docker containers on the same Docker host.
 
 ![Run Provider and Consumer on the same Docker host](usecase1.png)
 
@@ -208,7 +208,7 @@ $ sudo docker run --name provider -t elektron-sdk ./provider -p 14002 -s DIRET_F
 |--name | Assign a name to the container |
 |-t |  Allocate a pseudo-TTY for this container | 
  
- It sets a name of the container to "provider" by using the --name option so this name can be used by other docker commands to control the container, such as stop, restart, or remove. It also uses -t option to attach the terminal in order to see the output when running the provider example.
+ It sets a name of the container to "provider" by using the --name option so this name can be used by other Docker commands to control the container, such as stop, restart, or remove. It also uses -t option to attach the terminal in order to see the output when running the provider example.
 
 After running the command, you will see the output of the provider example on the screen.
 
@@ -223,7 +223,7 @@ Server IPC descriptor = 3 bound on port 14002
 ```
 Press Ctrl+c to detach the terminal. 
 
-Next, run another docker cotainer to consume the data from the provider example.
+Next, run another Docker cotainer to consume the data from the provider example.
 ```
 $ sudo docker run --name consumer -t --link provider:prov1 elektron-sdk ./consumer -h prov1 -p 14002 -s DIRECT_FEED -mp TEST
 
@@ -234,7 +234,7 @@ $ sudo docker run --name consumer -t --link provider:prov1 elektron-sdk ./consum
 |-t |  Allocate a pseudo-TTY for this container | 
 |--link | Add link to another container |
 
-It sets a name of the container to "consumer" so this name can be used to control the container. It uses the --link option to link this container to the container named "provider" and set an alias  to "prov1". After linking, the application in the container can use this alias to create a network connection to the docker container that runs the provider example.
+It sets a name of the container to "consumer" so this name can be used to control the container. It uses the --link option to link this container to the container named "provider" and set an alias  to "prov1". After linking, the application in the container can use this alias to create a network connection to the Docker container that runs the provider example.
 
 After running the command, you will see the output of the consumer example on the screen.
 
@@ -298,11 +298,11 @@ Use the following Docker commands to manage the containers.
 |docker rm CONTAINER [CONTAINER...] |Remove one or more containers |
 
 
-In summary, to run provider and consumer examples in the same Docker host, the --link option can used when running the consumer to create an alias for the connection to the docker container that runs the provider example.
+In summary, to run provider and consumer examples in the same Docker host, the --link option can used when running the consumer to create an alias for the connection to the Docker container that runs the provider example.
 
 ### 2. Run Provider and Consumer on different Docket hosts
 
-The provider and consumer containers can be run on different Docker hosts. The elektron-sdk docker image must be built on both docker hosts. In this scenario, the provider container will be run on docker host A and the consumer container will be run on host B.
+The provider and consumer containers can be run on different Docker hosts. The elektron-sdk Docker image must be built on both Docker hosts. In this scenario, the provider container will be run on Docker host A and the consumer container will be run on host B.
 
 ![Run Provider and Consumer on different Docket hosts](usecase2.png)
 
@@ -324,7 +324,7 @@ Server IPC descriptor = 3 bound on port 14002
 |-t |  Allocate a pseudo-TTY for this container | 
 |-p | Publish a container's port(s) to the host |
 
- It sets a name of the container to "providerA" by using the --name option so this name can be used by other docker commands to control the container, such as stop, restart, or remove. It uses -t option to attach the terminal in order to see the output when running the provider example and uses -p option to publish the TCP 14002 port used by the container to TCP 14002 port on the host machine. Therefore, the consumer application can connect to this port on the host machine to consumer the data from the container.
+ It sets a name of the container to "providerA" by using the --name option so this name can be used by other Docker commands to control the container, such as stop, restart, or remove. It uses -t option to attach the terminal in order to see the output when running the provider example and uses -p option to publish the TCP 14002 port used by the container to TCP 14002 port on the host machine. Therefore, the consumer application can connect to this port on the host machine to consumer the data from the container.
 
  Then, use the following command to run the consumer container on host B.
 
@@ -352,10 +352,10 @@ $ sudo docker run -it --name esdk elektron-sdk
 
 After running this command, you can access shell in the container. Then, you can use the container to build Elektron SDK applications, or modify and build examples.
 
-Finally, **docker commit** command can be used to build the new docker image from the modified container.
+Finally, **docker commit** command can be used to build the new Docker image from the modified container.
 
 ## Conclusion
-Docker is an open containerization platform for developing, testing, deploying, and running any software applications. This article shows how to deploy and run Elektron SDK's applications in the docker platform. It starts with building a docker image for Elektron SDK and then showing use case scenarios covering running the provider and consumer examples. 
+Docker is an open containerization platform for developing, testing, deploying, and running any software applications. This article shows how to deploy and run Elektron SDK's applications in the Docker platform. It starts with building a Docker image for Elektron SDK and then showing use case scenarios covering running the provider and consumer examples. 
 ## References
 1. [Docker Documentation](https://docs.docker.com/)
 2. [Chelladhurai, J., Raj, P. and Singh, V. (2015). Learning Docker](https://www.packtpub.com/virtualization-and-cloud/learning-docker)
