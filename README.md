@@ -4,9 +4,9 @@ Docker is an open containerization platform for developing, testing, deploying, 
 
 Developers can use Docker to automate the repetitive chores, such as setting up and configuring controlled development environments. Each environment or container has its own resources that are independent from other containers.  Numerous containers of separate applications are running completely on different stacks. Therefore, developers can avoid common problems, such as run-time library conflictions, and unsupported environments and focus totally on developing software. Moreover, they can simply delete the containers without any footprints left on the host machine.
 
-This article demonstrates a way to deploy and run Elektron SDK's applications in the Docker platform. It starts with building a Docker image for Elektron SDK and then showing use case scenarios including running the provider and consumer examples.
+This article demonstrates a way to deploy and run Elektron SDK's applications in the Docker platform. It starts with building a Docker image for Elektron SDK and then shows use case scenarios of this image including running the provider and consumer examples.
 
-However, the Elektron SDK isn't qualified on the Docker platform. If you find problems in the Elektron SDK while running on the Docker platform, the issues must be replicated on bare metal machines before contacting the helpdesk support.
+However, the Elektron SDK isn't qualified on the Docker platform. If you find any problems while running it on the Docker platform, the issues must be replicated on bare metal machines before contacting the helpdesk support.
 
 ## Docker Installation
 Docker is available on many platforms, such as Windows, Mac, CentOS, Debian, Oracle Linux, RHEL, and Ubuntu. In this article, Oracle Linux Server 6 and Docker 1.12.6 are used. Please follow these steps to install a Docker.
