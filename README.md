@@ -348,7 +348,7 @@ $ sudo docker run -it --name esdk elektron-sdk
 |-t | Allocate a pseudo-TTY for this container |
 |--name | Assign a name to the container |
 
-After running this command, you can access shell in the container. Then, you can use the container to build Elektron SDK applications, or modify and build other examples.
+After running this command, you can access shell in the container. Then, you can use the container to build Elektron SDK applications, or modify and build other examples. The Elektron SDK is in /opt/thomsonreuters/Elektron-SDK/ directory.
 
 ## Conclusion
 Docker is an open containerization platform for developing, testing, deploying, and running any software applications. This article shows how to deploy and run Elektron SDK's applications in the Docker platform. It starts with building a Docker image for Elektron SDK and then showing use case scenarios covering running the provider and consumer examples. 
