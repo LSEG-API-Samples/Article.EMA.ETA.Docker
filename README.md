@@ -9,7 +9,7 @@ This article demonstrates a way to deploy and run Elektron SDK's applications in
 However, the Elektron SDK isn't qualified on the Docker platform. If you find any problems while running it on the Docker platform, the issues must be replicated on bare metal machines before contacting the helpdesk support.
 
 ## Docker Installation
-Docker is available on many platforms, such as Windows, Mac, CentOS, Debian, Oracle Linux, RHEL, and Ubuntu. In this article, Oracle Linux Server 6 and Docker 1.12.6 are used. Please follow these steps to install a Docker.
+Docker is available on many platforms including Windows, Mac, CentOS, Debian, Oracle Linux, RHEL, and Ubuntu. In this article, Oracle Linux Server 6 and Docker 1.12.6 are used. Please follow the following steps to install a Docker on Oracle Linux Server 6.
 
 1. Installing Docker engine
 
@@ -46,7 +46,7 @@ The running status indicates that the Docker service is ready to be used. The ne
 
 ## Docker Image and Container
 
-A Docker image is a lightweight, stand-alone, executable package that includes everything for running an application including the code, runtime libraries, environment variables, and configuration files. There are a lot of public Docker images available in [a Docker registry](https://hub.docker.com). The registry is for registering the Docker images, whereas the repository is for storing those registered Docker images. The following command pulls an Ubuntu Docker image from the Docker repository.
+A Docker image is a lightweight, stand-alone, executable package that includes everything for running an application including the code, runtime libraries, environment variables, and configuration files. There are a lot of public Docker images registered in [the Docker registry](https://hub.docker.com). The registry is for registering the Docker images, whereas the repository is for storing those registered Docker images. The following command pulls an Ubuntu Docker image from the Docker repository.
 
 ```
 $ sudo docker pull ubuntu
@@ -79,30 +79,30 @@ Docker allows users to build a new Docker image from an existing Docker image by
 
 The list of instructions in the Dockerfile for building an Elektron SDK Docker image is:
 
-1. Set the base image for the build process to Oracle Linux 7
+1. Set a base image for a build process to Oracle Linux 7
 
 ```
 FROM oraclelinux:7
 ```
-> The **FROM** instruction is the first valid instruction of a Dockerfile. It sets the base image for the build process. The subsequent instructions would build on top of this base image. Elektron SDK supports Oracle Linux 7 so it is used as a base image for building an Elektron SDK Docker image.
+> The **FROM** instruction is the first valid instruction of a Dockerfile. It sets a base image for a build process. Subsequent instructions would build on top of this base image. Elektron SDK supports Oracle Linux 7 so it is used as a base image for building an Elektron SDK Docker image.
 
 2. Set author's detail of the image
 
 ```
 LABEL maintainer="Thomson Reuters Active Help Service"
 ```
-> The **LABEL** instruction adds key-value pair metadata to an image. The above instruction adds a metadata for the maintainer of this image. Users can use **docker inspect** command to view an image's labels.
+> The **LABEL** instruction adds key-value pair metadata to an image. The above instruction adds a metadata for a maintainer of this image. Users can use **docker inspect** command to view an image's labels.
 
-3. Load and build the Elektron SDK libraries
+3. Load and build Elektron SDK libraries
 
-> In this step, the **RUN** instruction is used to load all required packages, and build the Elektron SDK libraries and examples. It accepts multiple commands separated by a && operator. The backslash is also used to split long RUN statements into multiple lines. 
+> In this step, the **RUN** instruction is used to load all required packages, and build Elektron SDK libraries and examples. It accepts multiple commands separated by a && operator. The backslash is also used to split long RUN statements into multiple lines. 
 
-> First, it runs the yum command to install gcc, ksh, and lsb packages. These packages are required to build the Elektron SDK libraries.  
+> First, it runs the **yum** command to install gcc, ksh, and lsb packages. These packages are required to build Elektron SDK libraries.  
 
 ```
 RUN yum -y install gcc-c++.x86_64 git.x86_64 ksh redhat-lsb-core.x86_64 \
 ```
-> Then, it creates a directory (/opt/thomsonreuters) for installing the Elektron SDK and uses **git** command to clone the Elektron SDK package from github.
+> Then, it creates a directory (/opt/thomsonreuters) for installing Elektron SDK and uses **git** command to clone the Elektron SDK package from github.
 
 ```
 ... 
@@ -123,7 +123,7 @@ RUN yum -y install gcc-c++.x86_64 git.x86_64 ksh redhat-lsb-core.x86_64 \
   && cd /opt/thomsonreuters/Elektron-SDK/Cpp-C/Ema/Src/Access \
   && make \
 ```
->> Finally, it compiles the provider and consumer examples in the Elektron SDK C package and creates softlinks to compiled binaries and data dictionary files.
+>> Finally, it compiles provider and consumer examples in the Elektron SDK C package and creates softlinks to compiled binaries and data dictionary files.
 
 ```
 ...
@@ -139,22 +139,22 @@ RUN yum -y install gcc-c++.x86_64 git.x86_64 ksh redhat-lsb-core.x86_64 \
   && ln -s ../../etc/enumtype.def enumtype.def
 ...
 ```
-4. Set the working directory 
+4. Set a working directory 
 
 ```
 WORKDIR /opt/thomsonreuters/Elektron-SDK/Cpp-C/Eta/Applications/Examples
 ```
-> The above **WORKDIR** instruction sets the working directory to the **Examples** directory of Elektron SDK C package. This directory contains softlinks to the provider and consumer applications which can be executed in Docker containers.
+> The above **WORKDIR** instruction sets a working directory to the **Examples** directory of Elektron SDK C package. This directory contains softlinks to provider and consumer applications which can be executed in Docker containers.
 
-5.  Set the default command for an executing container
+5.  Set a default command for an executing container
 ```
 CMD /bin/sh
 ```
-> The **CMD** instruction specifies a default command which will be executed when the container is launched from the Docker image. However, it can be overridden by the **docker run** subcommand arguments. The default command executed when launching this image is shell command. 
+> The **CMD** instruction specifies a default command which will be executed when a container is launched from a Docker image. However, it can be overridden by the **docker run** subcommand arguments. The default command executed when launching this image is shell command. 
 
 The full Dockerfile is available in [github](https://github.com/TR-API-Samples/Article.EMA.ETA.Docker). 
 
-To build a Docker image from this Dockerfile, you can copy this Docker file to the host machine, and then run the following command in the same directory that contains this Dockerfile.
+To build a Docker image from this Dockerfile, you can copy this Docker file to a host machine, and then run the following command in the same directory that contains this Dockerfile.
 
 ```
 $ ls -al
@@ -221,7 +221,7 @@ Server IPC descriptor = 3 bound on port 14002
 ```
 Press Ctrl+c to detach the terminal. 
 
-Next, launch another Docker container with the consumer example to consume the data from the provider example.
+Next, launch another Docker container with the consumer example to consume the data from the provider container.
 ```
 $ sudo docker run --name consumer -t --link provider:prov1 elektron-sdk ./consumer -h prov1 -p 14002 -s DIRECT_FEED -mp TEST
 
@@ -232,7 +232,7 @@ $ sudo docker run --name consumer -t --link provider:prov1 elektron-sdk ./consum
 |-t |  Allocate a pseudo-TTY for this container | 
 |--link | Add link to another container |
 
-This command sets a name of the container to "consumer". It uses the --link option to link this container to the container named "provider" and set an alias to "prov1". After linking, the application in the container can use this alias to create a network connection to the Docker container named "provider".
+This command sets a name of the container to "consumer". It uses the --link option to link this container to the container named "provider" and set an alias to "prov1". After linking, the application in the container can use this alias to create a network connection to the linked Docker container.
 
 After running the command, you will see the output of the consumer example on the screen.
 
@@ -286,7 +286,7 @@ State: Open/Ok/None - text: "Item Refresh Completed"
 ```
 Press Ctrl+c to detach the terminal. 
 
-Use the following Docker commands with the container names to manage the containers.
+After detaching the terminal, the containers are still running in background. The following Docker commands can be used with the container names to manage the containers.
 
 |Docker Command|Description|
 |----------|-----------|
@@ -300,7 +300,7 @@ In summary, to run provider and consumer containers on the same Docker host, the
 
 ### 2. Run Provider and Consumer on different Docket hosts
 
-The provider and consumer containers can be run on different Docker hosts. The elektron-sdk Docker image must be built on both Docker hosts. In this scenario, the provider container will be run on host A and the consumer container will be run on host B.
+The provider and consumer containers can be run on different Docker hosts. The elektron-sdk Docker image must be built on both Docker hosts. In this scenario, the provider container is on host A and the consumer container is on host B.
 
 ![Run Provider and Consumer on different Docket hosts](usecase2.png)
 
@@ -322,21 +322,21 @@ Server IPC descriptor = 3 bound on port 14002
 |-t |  Allocate a pseudo-TTY for this container | 
 |-p | Publish a container's port(s) to the host |
 
- It sets a name of the container to "providerA" by using the --name option. It uses the -t option to attach the terminal in order to see the output when running the provider example and uses the -p option to publish the TCP 14002 port used by the container to TCP 14002 port on the host machine. Therefore, the consumer application can connect to this port on the host machine to consumer the data from the container.
+ It sets a name of the container to "providerA" by using the --name option. It uses the -t option to attach the terminal in order to see the output when running the provider example and uses the -p option to publish the TCP 14002 port used by the container to TCP 14002 port on the host machine. Therefore, the consumer container can connect to this port on the host machine to consumer the data from the container.
 
  Then, use the following command to launch the consumer container on host B.
 
  ```
  $ sudo docker run -t --name consumerB elektron-sdk ./consumer -h <host_A_IP> -p 14002 -s DIRECT_FEED -mp TEST
  ```
- You need to change <host_A_IP> to the IP address of host A machine. This command launches a container from an elektron-sdk image. The container will run consumer example which connects to TCP 14002 port on host A and consume data from DIRECT_FEED service. 
+ You need to change <host_A_IP> to the IP address of host A machine. This command launches a container from the elektron-sdk image. The container will run consumer example which connects to TCP 14002 port on host A and consume data from DIRECT_FEED service. 
 
  In summary, to run provider and consumer examples on different Docker hosts, the -p option must be used when running the provider container to publish the listening TCP port used by the provider to the host machine. Then, the consumer container can connect to that published port on that host machine. 
 
 
 ### 3. Access shell command to developer application or build examples
 
-If you launch a Docker container from the **elektron-sdk** image without any arguments, the default command (/bin/sh) will be executed.
+If a Docker container is launched from the **elektron-sdk** image without any arguments, the default command (/bin/sh) will be executed.
 
 ```
 $ sudo docker run -it --name esdk elektron-sdk
@@ -349,8 +349,6 @@ $ sudo docker run -it --name esdk elektron-sdk
 |--name | Assign a name to the container |
 
 After running this command, you can access shell in the container. Then, you can use the container to build Elektron SDK applications, or modify and build other examples.
-
-Finally, **docker commit** command can be used with the container name to build the new Docker image from the modified container.
 
 ## Conclusion
 Docker is an open containerization platform for developing, testing, deploying, and running any software applications. This article shows how to deploy and run Elektron SDK's applications in the Docker platform. It starts with building a Docker image for Elektron SDK and then showing use case scenarios covering running the provider and consumer examples. 
