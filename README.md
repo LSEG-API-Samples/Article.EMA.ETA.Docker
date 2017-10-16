@@ -4,7 +4,7 @@ Docker is an open containerization platform for developing, testing, deploying, 
 
 Developers can use Docker to automate the repetitive chores, such as setting up and configuring controlled development environments. Each environment or container has its own resources that are independent from other containers.  Numerous containers of separate applications are running completely on different stacks. Therefore, developers can avoid common problems, such as run-time library conflictions, and unsupported environments and focus totally on developing software. Moreover, they can simply delete the containers without any footprints left on the host machine.
 
-This article demonstrates a way to deploy and run Elektron SDK's applications in the Docker platform. It starts with building a Docker image for Elektron SDK and then shows use case scenarios of this image including running the provider and consumer examples.
+This article demonstrates a way to deploy and run Elektron SDK's applications in the Docker platform. It starts with building a Docker image for Elektron SDK and then shows usages of this image including running the provider and consumer examples.
 
 However, the Elektron SDK isn't qualified on the Docker platform. If you find any problems while running it on the Docker platform, the issues must be replicated on bare metal machines before contacting the helpdesk support.
 
@@ -186,7 +186,7 @@ elektron-sdk        latest              2155a4084df2        14 seconds ago      
 ```
 Now, the Elektron SDK Docker image is ready to be used. The next section shows how to use and run this image in various scenarios.
 
-## Use Case Scenarios
+## Usages
 
 ### 1. Run Provider and Consumer on the same Docker host
 
@@ -351,7 +351,7 @@ $ sudo docker run -it --name esdk elektron-sdk
 After running this command, you can access shell in the container. Then, you can use the container to build Elektron SDK applications, or modify and build other examples. The Elektron SDK is in /opt/thomsonreuters/Elektron-SDK/ directory.
 
 ## Conclusion
-Docker is an open containerization platform for developing, testing, deploying, and running any software applications. This article shows how to deploy and run Elektron SDK's applications in the Docker platform. It starts with building a Docker image for Elektron SDK and then showing use case scenarios covering running the provider and consumer examples. 
+Docker is an open containerization platform for developing, testing, deploying, and running any software applications. This article shows how to deploy and run Elektron SDK's applications in the Docker platform. It starts with building a Docker image for Elektron SDK and then showing some use cases including running the provider and consumer examples. 
 ## References
 1. [Docker Documentation](https://docs.docker.com/)
 2. [Chelladhurai, J., Raj, P. and Singh, V. (2015). Learning Docker](https://www.packtpub.com/virtualization-and-cloud/learning-docker)
