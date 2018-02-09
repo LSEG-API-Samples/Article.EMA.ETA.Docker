@@ -199,7 +199,7 @@ To run these examples, the example name must be specified as an argument of the 
 The following command launches a Docker container with the elektron-sdk image and runs the provider example in the container. The example's arguments can also be defined after the application's name.
 
 ```
-$ sudo docker run --name provider -t elektron-sdk ./provider -p 14002 -s DIRET_FEED -runtime 300
+$ sudo docker run --name provider -t elektron-sdk ./provider -p 14002 -s DIRECT_FEED -runtime 300
 ```
 |Option|Description|
 |----------|-----------|
