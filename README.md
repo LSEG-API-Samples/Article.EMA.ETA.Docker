@@ -100,49 +100,45 @@ LABEL maintainer="Thomson Reuters Active Help Service"
 > First, it runs the **yum** command to install gcc, ksh, and lsb packages. These packages are required to build Elektron SDK libraries.  
 
 ```
-RUN yum -y install gcc-c++.x86_64 git.x86_64 ksh redhat-lsb-core.x86_64 \
+RUN yum -y install gcc-c++.x86_64 git.x86_64 ksh redhat-lsb-core.x86_64 openssl-devel wget.x86_64
 ```
 > Then, it creates a directory (/opt/thomsonreuters) for installing Elektron SDK and uses **git** command to clone the Elektron SDK package from github.
 
 ```
 ... 
-  && mkdir -p /opt/thomsonreuters \
-  && cd /opt/thomsonreuters \
-  && git clone --recursive https://github.com/thomsonreuters/Elektron-SDK.git \
+  RUN mkdir -p /opt/thomsonreuters \
+ && cd /opt/thomsonreuters \
+ && git clone --recursive https://github.com/thomsonreuters/Elektron-SDK.git \
+ && wget https://cmake.org/files/v3.11/cmake-3.11.2-Linux-x86_64.tar.gz \
+ && tar -xvf cmake-3.11.2-Linux-x86_64.tar.gz \
+ && cd Elektron-SDK \
+ && git clone --recursive https://github.com/thomsonreuters/Elektron-SDK-BinaryPack.git \
+ && cd Elektron-SDK-BinaryPack \
+ && ./LinuxSoLink 
 ...
 ```
 > Next, it follows steps in [the github page](https://github.com/thomsonreuters/Elektron-SDK/tree/master/Cpp-C) to build Elektron SDK - C/C++ edition.
 
 ```
-  && cd Elektron-SDK/Elektron-SDK-BinaryPack/Cpp-C/Eta \
-  && ./LinuxSoLink \
-  && cd /opt/thomsonreuters/Elektron-SDK/Cpp-C/Eta/Impl \
-  && make all \
-  && cd ../Utils/Libxml2 \
-  && make \
-  && cd /opt/thomsonreuters/Elektron-SDK/Cpp-C/Ema/Src/Access \
-  && make \
+ RUN cd /opt/thomsonreuters/Elektron-SDK \
+ && mkdir esdk \
+ && export PATH=/opt/thomsonreuters/cmake-3.11.2-Linux-x86_64/bin:$PATH \
+ && cd esdk \
+ && cmake ../ \
+ && make \
 ```
 >> Finally, it compiles provider and consumer examples in the Elektron SDK C package and creates softlinks to compiled binaries and data dictionary files.
 
 ```
 ...
-  && cd /opt/thomsonreuters/Elektron-SDK/Cpp-C/Eta/Applications/Examples/Consumer \
-  && make \
-  && cd .. \
-  && ln -s Consumer/*/*/Consumer consumer \
-  && cd Provider \
-  && make \
-  && cd .. \
-  && ln -s Provider/*/*/Provider provider \
-  && ln -s ../../etc/RDMFieldDictionary RDMFieldDictionary \
-  && ln -s ../../etc/enumtype.def enumtype.def
+   && cp /opt/thomsonreuters/Elektron-SDK/Cpp-C/etc/* /opt/thomsonreuters/Elektron-SDK/Cpp-C/Eta/Executables/OL7_64*/Optimized \
+ && ln -s /opt/thomsonreuters/Elektron-SDK/Cpp-C/Eta/Executables/OL7_64* /opt/thomsonreuters/Elektron-SDK/Cpp-C/Eta/Executables/OL7_64
 ...
 ```
 4. Set a working directory 
 
 ```
-WORKDIR /opt/thomsonreuters/Elektron-SDK/Cpp-C/Eta/Applications/Examples
+WORKDIR /opt/thomsonreuters/Elektron-SDK/Cpp-C/Eta/Executables/OL7_64/Optimized
 ```
 > The above **WORKDIR** instruction sets a working directory to the **Examples** directory of Elektron SDK C package. This directory contains softlinks to provider and consumer applications which can be executed in Docker containers.
 
