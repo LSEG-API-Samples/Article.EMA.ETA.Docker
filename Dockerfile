@@ -5,6 +5,7 @@ RUN mkdir -p /opt/refinitiv \
  && cd /opt/refinitiv \
  && git clone --recursive https://github.com/refinitiv/Elektron-SDK.git \
  && wget https://cmake.org/files/v3.11/cmake-3.11.2-Linux-x86_64.tar.gz \
+ && wget http://xmlsoft.org/sources/libxml2-2.9.9.tar.gz \
  && tar -xvf cmake-3.11.2-Linux-x86_64.tar.gz \
  && cd Elektron-SDK \
  && git clone --recursive https://github.com/refinitiv/Elektron-SDK-BinaryPack.git \
@@ -14,6 +15,8 @@ RUN cd /opt/refinitiv/Elektron-SDK \
  && mkdir esdk \
  && export PATH=/opt/refinitiv/cmake-3.11.2-Linux-x86_64/bin:$PATH \
  && cd esdk \
+ && mkdir -p external/dlcache
+ && cp /opt/refinitv/libxml2-2.9.9.tar.gz external/dlcache
  && cmake ../ \
  && make \
  && cp /opt/refinitiv/Elektron-SDK/Cpp-C/etc/* /opt/refinitiv/Elektron-SDK/Cpp-C/Eta/Executables/OL7_64*/Optimized \
