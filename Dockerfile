@@ -17,7 +17,7 @@ RUN cd /opt/refinitiv/Elektron-SDK \
  && cd esdk \
  && mkdir -p external/dlcache \
  && cp /opt/refinitiv/libxml2-2.9.9.tar.gz external/dlcache \
- && cmake ../ \
+ && cmake ../ -DBUILD_UNIT_TESTS=OFF \
  && make \
  && cp /opt/refinitiv/Elektron-SDK/Cpp-C/etc/* /opt/refinitiv/Elektron-SDK/Cpp-C/Eta/Executables/OL7_64*/Optimized \
  && ln -s /opt/refinitiv/Elektron-SDK/Cpp-C/Eta/Executables/OL7_64* /opt/refinitiv/Elektron-SDK/Cpp-C/Eta/Executables/OL7_64
