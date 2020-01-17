@@ -1,5 +1,5 @@
 FROM oraclelinux:7
-LABEL maintainer="Refinitv Active Help Service"
+LABEL maintainer="Refinitiv Active Help Service"
 RUN yum -y install gcc-c++.x86_64 git.x86_64 ksh redhat-lsb-core.x86_64 openssl-devel wget.x86_64
 RUN mkdir -p /opt/refinitiv \
  && cd /opt/refinitiv \
